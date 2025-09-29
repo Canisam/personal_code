@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
  *     …
  *   ]
  */
+
 const RoomsCard = ({ data = [] }) => {
   return (
     <>
@@ -24,7 +25,6 @@ const RoomsCard = ({ data = [] }) => {
           key={room.id}
           style={{
             backgroundImage: `url(${room.imageBackgroundUrl})`,
-            marginBottom: '60px',
           }}
         >
           <InnerOverlay>
@@ -35,11 +35,10 @@ const RoomsCard = ({ data = [] }) => {
 
               <Description>{room.description}</Description>
 
-              {/* Link sends the nightly rate via location.state */}
               <Link
                 to={room.roomUrl}
-                state={{ price: room.price }}   /* 👈 pass price here */
-                style={{ textDecoration: 'none' }}
+                state={{ price: room.price }}
+                style={{ textDecoration: "none" }}
               >
                 <ContentButton>
                   <span>Book&nbsp;Now</span>
@@ -58,62 +57,94 @@ export default RoomsCard;
 
 /* ---------- styled components ---------- */
 
-const Container = styled('div')`
+const Container = styled("div")`
   background-size: cover;
   background-position: center;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 60%;
-  height: 60vh;
-  margin: 2rem auto;
+  width: 90%;
+  height: clamp(40vh, 60vh, 70vh);
+  margin: clamp(1rem, 4vw, 2.5rem) auto;
+  border-radius: 1rem;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    width: 95%;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
 
-const InnerOverlay = styled('div')`
-  background-color: rgba(0, 0, 0, 0.69);
+const InnerOverlay = styled("div")`
+  background-color: rgba(0, 0, 0, 0.65);
   width: 45%;
-  height: 40vh;
+  min-height: 40vh;
   margin-right: 8%;
   display: flex;
   align-items: center;
   color: #fff;
+  border-radius: 0.75rem;
+
+  @media (max-width: 1024px) {
+    width: 70%;
+    margin-right: 0;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 1rem;
+    min-height: auto;
+  }
 `;
 
-const Content = styled('div')`
+const Content = styled("div")`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  padding: clamp(1rem, 2vw, 2rem);
 `;
 
-const Price = styled('div')`
+const Price = styled("div")`
   font-weight: 600;
-  font-size: 18px;
+  font-size: clamp(1rem, 2vw, 1.25rem);
 `;
 
-const ContentHeading = styled('div')`
+const ContentHeading = styled("div")`
   font-weight: 700;
-  font-size: 25px;
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
 `;
 
-const Description = styled('div')`
-  line-height: 1.4;
+const Description = styled("div")`
+  line-height: 1.6;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: #e5e5e5;
 `;
 
-const ContentButton = styled('button')`
+const ContentButton = styled("button")`
   background-color: brown;
   color: #fff;
   border: none;
-  padding: 10px 16px;
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   font-weight: 600;
-  border-radius: 4px;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
 
   &:hover {
     background-color: #7a1e1e;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: center;
   }
 `;

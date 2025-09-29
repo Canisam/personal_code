@@ -1,50 +1,57 @@
-import React from 'react';
-import RoomsCard from './RoomsCard';
-import NavBar from './NavBar';
+import React from "react";
+import RoomsCard from "./RoomsCard";
+import NavBar from "./NavBar";
 
-import forestImg from '../assets/room1.png';
-import mountainImg from '../assets/room2.png';
-import mudImg from '../assets/room3.png';
+import forestImg from "../assets/room1.png";
+import mountainImg from "../assets/room2.png";
+import mudImg from "../assets/room3.png";
 
 const Stay = () => {
   const data = [
     {
-      id: '1',
+      id: "1",
       imageBackgroundUrl: mudImg,
-      price: 2500,                       // ← number
-      heading: 'Master Suite',
+      price: 2500,
+      heading: "Master Suite",
       description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum veniam dicta minus, facere nihil earum alias...',
-      roomUrl: '/Rooms/1',               // ← unique
-      imageSliderUrls: [forestImg, mountainImg, mudImg],  // ← array
-    },
-    {
-      id: '2',
-      imageBackgroundUrl: mountainImg,
-      price: 2567.01,
-      heading: 'Deluxe Suite',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum veniam dicta minus, facere nihil earum alias...',
-      roomUrl: '/Rooms/2',
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum veniam dicta minus, facere nihil earum alias...",
+      roomUrl: "/Rooms/1",
       imageSliderUrls: [forestImg, mountainImg, mudImg],
     },
     {
-      id: '3',
+      id: "2",
+      imageBackgroundUrl: mountainImg,
+      price: 2567.01,
+      heading: "Deluxe Suite",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum veniam dicta minus, facere nihil earum alias...",
+      roomUrl: "/Rooms/2",
+      imageSliderUrls: [forestImg, mountainImg, mudImg],
+    },
+    {
+      id: "3",
       imageBackgroundUrl: forestImg,
       price: 3800,
-      heading: 'Family Suite',
+      heading: "Family Suite",
       description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum veniam dicta minus, facere nihil earum alias...',
-      roomUrl: '/Rooms/3',
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum veniam dicta minus, facere nihil earum alias...",
+      roomUrl: "/Rooms/3",
       imageSliderUrls: [forestImg, mountainImg, mudImg],
     },
   ];
 
   return (
-    <>
-      <NavBar />
-      <RoomsCard data={data} />
-    </>
+    <div className="flex flex-col min-h-screen">
+      <header>
+        <NavBar />
+      </header>
+      <main className="flex-1 px-clamp py-clamp">
+        <RoomsCard data={data} />
+      </main>
+      <footer className="mt-auto text-center py-4 text-sm text-gray-600">
+        © {new Date().getFullYear()} Stay Inn. All rights reserved.
+      </footer>
+    </div>
   );
 };
 

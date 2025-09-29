@@ -27,14 +27,12 @@ const NavBar = () => {
           <img
             src={`main-logo.png?w=164&h=164&fit=crop&auto=format`}
             loading="lazy"
-            style={{ height: "60px", paddingTop: "3px", paddingRight: "20px" }}
             alt="Logo"
           />
-          <span style={{ marginRight: "10px" }}>The Stone Heritage</span>
+          <span>The Stone Heritage</span>
         </Link>
       </Logo>
 
-      {/* Hamburger Icon (Visible on mobile) */}
       <HamburgerIcon onClick={toggleMenu}>
         {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
       </HamburgerIcon>
@@ -43,10 +41,12 @@ const NavBar = () => {
         {navItems.map((item, i) => (
           <NavItem key={i} onClick={() => setMobileMenuOpen(false)}>
             {item === "Book Now" ? (
-              <BookNowButton to={"/" + item}>{item}</BookNowButton>
+              <BookNowButton to={"/" + item.replace(/\s+/g, "")}>
+                {item}
+              </BookNowButton>
             ) : (
               <Link
-                to={"/" + item}
+                to={"/" + item.replace(/\s+/g, "")}
                 style={{ textDecoration: "none", color: "#984216" }}
               >
                 {item}
@@ -68,60 +68,67 @@ const NavBarMainComponent = styled("nav")`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 50px;
-  height: 10vh;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  height: clamp(60px, 10vh, 80px);
   width: 100%;
-  color: #feae0;
   position: relative;
-
-  @media (max-width: 768px) {
-    padding: 0 20px;
-  }
+  z-index: 1000;
 `;
 
 const Logo = styled("div")`
-  font-size: 40px;
-  font-family: "serif";
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.1rem, 2.5vw, 1.75rem);
+  font-family: serif;
   font-weight: bold;
   white-space: nowrap;
+
+  img {
+    height: clamp(40px, 6vw, 55px);
+    margin-right: clamp(0.5rem, 1vw, 1rem);
+    max-width: 100%;
+  }
 `;
 
 const NavItemsContainer = styled("div")`
   display: flex;
-  gap: 30px;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
 
   @media (max-width: 768px) {
     position: absolute;
-    top: 10vh;
+    top: 100%;
     left: 0;
+    right: 0;
     background-color: #dda15e;
     flex-direction: column;
     width: 100%;
-    padding: 20px 0;
+    padding: ${({ open }) => (open ? "1rem 0" : "0")};
     align-items: center;
     transition: all 0.3s ease-in-out;
-    max-height: ${({ open }) => (open ? "300px" : "0")};
+    max-height: ${({ open }) => (open ? "400px" : "0")};
+    opacity: ${({ open }) => (open ? "1" : "0")};
     overflow: hidden;
-    gap: 20px;
+    gap: 1rem;
   }
 `;
 
 const NavItem = styled("div")`
-  font: 400 20px serif;
+  font: 600 clamp(0.95rem, 2vw, 1.1rem) serif;
   cursor: pointer;
   color: #984216;
-  font-weight: bold;
+  transition: color 0.2s ease;
 
-  @media (max-width: 768px) {
-    font-size: 24px;
+  &:hover {
+    color: #fff;
   }
 `;
 
 const BookNowButton = styled(Link)`
   background-color: #fff;
   color: #984216;
-  padding: 6px 20px;
-  border-radius: 5px;
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
+  border-radius: 0.5rem;
   font-weight: bold;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -129,12 +136,21 @@ const BookNowButton = styled(Link)`
   &:hover {
     background-color: #ddd;
   }
+
+  @media (max-width: 768px) {
+    width: 80%;
+    text-align: center;
+  }
 `;
 
 const HamburgerIcon = styled("div")`
   display: none;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 1100;
+
+  svg {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
 
   @media (max-width: 768px) {
     display: block;

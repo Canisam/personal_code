@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material";
 
-// Import images if using from /src/assets
 import forestImg from "../assets/room1.png";
 import mountainImg from "../assets/room2.png";
 import mudImg from "../assets/room3.png";
@@ -45,112 +44,94 @@ const RoomCarousel = () => {
   }, [activeIndex]);
 
   return (
-    <>
-      <Container>
-        <Text>
-          <Heading>The small details make the difference.</Heading>
-          <Description>
-            Every room tells a story — of silence, sunrise, and soul-soothing
-            moments.
-            <br />
-            Find your space, your pause, your peace.
-          </Description>
-        </Text>
+    <Container>
+      <Text>
+        <Heading>The small details make the difference.</Heading>
+        <Description>
+          Every room tells a story — of silence, sunrise, and soul-soothing
+          moments. <br /> Find your space, your pause, your peace.
+        </Description>
+      </Text>
 
-        {/* Previous Image for slide-out npm i react-dates moment prop-types
-# or yarn add react-dates moment prop-types
-*/}
-        {prevIndex !== null && (
-          <Background
-            key={`prev-${rooms[prevIndex].id}`}
-            style={{
-              backgroundImage: `url(${rooms[prevIndex].image})`,
-              transform: "translateX(0%)",
-              zIndex: 1,
-            }}
-            className="slide-out"
-          />
-        )}
-        {/* Active Image for slide-in */}
+      {/* Previous image (slide out) */}
+      {prevIndex !== null && (
         <Background
-          key={`active-${activeRoom.id}`}
-          style={{
-            backgroundImage: `url(${activeRoom.image})`,
-            transform: "translateX(100%)",
-            zIndex: 2,
-          }}
-          className="slide-in"
+          key={`prev-${rooms[prevIndex].id}`}
+          style={{ backgroundImage: `url(${rooms[prevIndex].image})` }}
+          className="slide-out"
         />
+      )}
 
-        <Overlay>
-          {/* <Content>
-            <h1>{activeRoom.name}</h1>
-            <p>{activeRoom.description}</p>
-            <a href={activeRoom.link}>
-              <ShowMoreButton>Show More</ShowMoreButton>
-            </a>
-          </Content> */}
+      {/* Active image (slide in) */}
+      <Background
+        key={`active-${activeRoom.id}`}
+        style={{ backgroundImage: `url(${activeRoom.image})` }}
+        className="slide-in"
+      />
 
-          <ThumbnailRow>
-            {rooms.map((room, index) => (
-              <Thumbnail
-                key={room.id}
-                src={room.image}
-                alt={room.name}
-                active={index === activeIndex}
-                onClick={() => {
-                  setPrevIndex(activeIndex);
-                  setActiveIndex(index);
-                }}
-              />
-            ))}
-          </ThumbnailRow>
-        </Overlay>
-      </Container>
-    </>
+      <Overlay>
+        <ThumbnailRow>
+          {rooms.map((room, index) => (
+            <Thumbnail
+              key={room.id}
+              src={room.image}
+              alt={room.name}
+              active={index === activeIndex}
+              onClick={() => {
+                setPrevIndex(activeIndex);
+                setActiveIndex(index);
+              }}
+            />
+          ))}
+        </ThumbnailRow>
+      </Overlay>
+    </Container>
   );
 };
 
 export default RoomCarousel;
 
-// Styled components
+/* ---------- styled ---------- */
 
 const Container = styled("div")`
   position: relative;
   width: 100%;
-  height: 40vh;
+  height: 50vh;
   overflow: hidden;
+
+  @media (max-width: 1024px) {
+    height: 45vh;
+  }
+  @media (max-width: 768px) {
+    height: 40vh;
+  }
+  @media (max-width: 480px) {
+    height: 35vh;
+  }
 `;
 
 const Text = styled("div")`
   position: absolute;
-  top: 2vh;
+  top: 5%;
   width: 100%;
   z-index: 4;
   text-align: center;
   color: #fff;
-  padding: 0 20px;
+  padding: 0 16px;
 `;
 
 const Heading = styled("h2")`
-  font-size: 32px;
+  font-size: clamp(20px, 4vw, 32px);
   font-weight: 700;
-  margin-bottom: 10px;
-
-  @media (max-width: 768px) {
-    font-size: 28px;
-  }
+  margin-bottom: 8px;
 `;
 
 const Description = styled("p")`
-  font-size: 20px;
+  font-size: clamp(14px, 2.2vw, 18px);
   font-weight: 400;
   max-width: 800px;
   margin: 0 auto;
-
-  @media (max-width: 768px) {
-    font-size: 16px;
-  }
+  line-height: 1.5;
 `;
 
 const Background = styled("div")`
@@ -167,7 +148,6 @@ const Background = styled("div")`
   &.slide-in {
     animation: slideIn 1s forwards;
   }
-
   &.slide-out {
     animation: slideOut 1s forwards;
   }
@@ -180,7 +160,6 @@ const Background = styled("div")`
       transform: translateX(0%);
     }
   }
-
   @keyframes slideOut {
     from {
       transform: translateX(0%);
@@ -196,40 +175,27 @@ const Overlay = styled("div")`
   z-index: 3;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: 60px 40px;
-  color: white;
-`;
-
-const Content = styled("div")`
-  margin-left: 5vh;
-  text-align: left;
-  
-  h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-
-  p {
-    font-size: 20px;
-    width: 60%;
-    max-width: 600px;
-  }
+  justify-content: flex-end;
+  padding: 16px;
 `;
 
 const ThumbnailRow = styled("div")`
   display: flex;
-  gap: 20px;
-  
+  gap: 12px;
   justify-content: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 `;
 
 const Thumbnail = styled("img")(({ active }) => ({
-  width: "160px",
-  height: "100px",
+  width: "120px",
+  height: "80px",
   borderRadius: "8px",
   border: active ? "3px solid #fff" : "2px solid transparent",
   cursor: "pointer",
@@ -237,15 +203,12 @@ const Thumbnail = styled("img")(({ active }) => ({
   transition: "all 0.3s ease",
   opacity: active ? 1 : 0.6,
   transform: active ? "scale(1.05)" : "scale(1)",
+  "@media (max-width: 768px)": {
+    width: "90px",
+    height: "60px",
+  },
+  "@media (max-width: 480px)": {
+    width: "70px",
+    height: "50px",
+  },
 }));
-
-const ShowMoreButton = styled("button")`
-  margin-top: 20px;
-  padding: 12px 24px;
-  background-color: #ff6f61;
-  color: white;
-  border: none;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-`;

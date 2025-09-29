@@ -1,5 +1,5 @@
-import React from 'react';
-import { styled } from '@mui/material';
+import React from "react";
+import { styled } from "@mui/material";
 
 const FeaturesCard = ({ logo, text, description }) => {
   return (
@@ -15,11 +15,12 @@ const FeaturesCard = ({ logo, text, description }) => {
 
 export default FeaturesCard;
 
-// Styled components
+/* ---------- styled ---------- */
 
 const CardContainer = styled("div")`
   padding: 20px;
-  width: 250px;
+  flex: 1 1 250px; /* flexible: min 250px, grow/shrink */
+  max-width: 300px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -36,6 +37,15 @@ const CardContainer = styled("div")`
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   }
+
+  @media (max-width: 768px) {
+    flex: 1 1 45%; /* two per row on tablets */
+    max-width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    flex: 1 1 100%; /* full width on mobile */
+  }
 `;
 
 const Logo = styled("div")`
@@ -43,6 +53,11 @@ const Logo = styled("div")`
   justify-content: center;
   align-items: center;
   margin-bottom: 12px;
+
+  svg {
+    font-size: clamp(40px, 8vw, 70px); /* responsive icon size */
+    color: #384b42;
+  }
 `;
 
 const Content = styled("div")`
@@ -53,12 +68,13 @@ const Content = styled("div")`
 `;
 
 const Heading = styled("div")`
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   font-weight: 700;
   margin-bottom: 8px;
 `;
 
 const Description = styled("div")`
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
   color: #555;
+  line-height: 1.4;
 `;

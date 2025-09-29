@@ -1,48 +1,63 @@
 // HomeContainer.jsx
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const HomeContainer = ({
   bgImage,
   text,
-  overlayColor = '#7FA89E',   // teal/blue like the reference
-  minHeight = '60vh'
+  overlayColor = 'rgba(127,168,158,0.5)', // semi-transparent teal overlay
+  minHeight = '60vh',
 }) => {
   return (
     <Box
       sx={{
+        position: 'relative',
         minHeight,
         backgroundImage: `url(${bgImage})`,
         backgroundSize: 'cover',
-        backgroundRepeat: "no-repeat",
+        backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        p: 2,
+        p: { xs: 2, sm: 3, md: 4 },
       }}
     >
-      {/* centered small rectangular box */}
+      {/* Overlay for readability */}
       <Box
         sx={{
-          backgroundColor: "#fff",
+          position: 'absolute',
+          inset: 0,
+          backgroundColor: overlayColor,
+        }}
+      />
+
+      {/* Content box */}
+      <Box
+        sx={{
+          position: 'relative',
+          backgroundColor: 'rgba(255,255,255,0.85)',
           color: '#984216',
           borderRadius: 2,
-          px: { xs: 3, sm: 6 },
-          py: { xs: 2, sm: 3 },
+          px: { xs: 2, sm: 4, md: 6 },
+          py: { xs: 2, sm: 3, md: 4 },
           textAlign: 'center',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 2,
-          maxWidth: 800,
-          opacity: '0.8'
+          gap: { xs: 1.5, sm: 2 },
+          maxWidth: { xs: '90%', sm: '80%', md: '700px' },
         }}
       >
-        <Typography variant="h5" sx={{ lineHeight: 1.4, opacity: 'none' }}>
+        <Typography
+          variant="h5"
+          sx={{
+            fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' },
+            lineHeight: 1.5,
+            fontWeight: 500,
+          }}
+        >
           {text}
         </Typography>
-
-
       </Box>
     </Box>
   );

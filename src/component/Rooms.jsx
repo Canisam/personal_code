@@ -1,57 +1,78 @@
-import React from 'react';
-import { styled } from '@mui/material';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import React from "react";
+import { styled } from "@mui/material";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
-import NavBar from './NavBar';
-import Bookings from './Bookings';
-import FeaturesCard from './FeaturesCard';
+import NavBar from "./NavBar";
+import Bookings from "./Bookings";
+import FeaturesCard from "./FeaturesCard";
 
-import SignalWifi4BarIcon from '@mui/icons-material/SignalWifi4Bar';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import ConnectedTvIcon from '@mui/icons-material/ConnectedTv';
-import RoomServiceIcon from '@mui/icons-material/RoomService';
-import LocalParkingIcon from '@mui/icons-material/LocalParking';
+import SignalWifi4BarIcon from "@mui/icons-material/SignalWifi4Bar";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import ConnectedTvIcon from "@mui/icons-material/ConnectedTv";
+import RoomServiceIcon from "@mui/icons-material/RoomService";
+import LocalParkingIcon from "@mui/icons-material/LocalParking";
 
 const Rooms = () => {
-  const navigate   = useNavigate();
-  const location   = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { id: roomId } = useParams();
 
-  /* nightly price can arrive under two possible keys */
   const pricePerNight =
-    Number(location.state?.pricePerNight) ||    // ← if Rooms sent this key
-    Number(location.state?.price)        ||     // ← if RoomsCard sent {price}
+    Number(location.state?.pricePerNight) ||
+    Number(location.state?.price) ||
     0;
 
-  /* ---- page copy / amenities ---- */
   const amenities = [
-    { logo: <SignalWifi4BarIcon sx={{ fontSize: 70, color: '#384b42' }} />, text: 'Free Wi‑Fi',
-      description: 'High‑speed wireless internet available 24/7.' },
-    { logo: <AcUnitIcon        sx={{ fontSize: 70, color: '#384b42' }} />, text: 'Air‑Conditioning',
-      description: 'Stay cool and comfortable all year round.' },
-    { logo: <ConnectedTvIcon   sx={{ fontSize: 70, color: '#384b42' }} />, text: 'Smart TV',
-      description: 'Watch your favourites on a 42‑inch smart TV.' },
-    { logo: <RoomServiceIcon   sx={{ fontSize: 70, color: '#384b42' }} />, text: 'Room Service',
-      description: 'On‑demand food and beverage delivery.' },
-    { logo: <LocalParkingIcon  sx={{ fontSize: 50, color: '#384b42' }} />, text: 'Free Parking',
-      description: 'Secure, on‑site parking is included.' },
+    {
+      logo: <SignalWifi4BarIcon sx={{ fontSize: "clamp(40px,5vw,70px)", color: "#384b42" }} />,
+      text: "Free Wi-Fi",
+      description: "High-speed wireless internet available 24/7.",
+    },
+    {
+      logo: <AcUnitIcon sx={{ fontSize: "clamp(40px,5vw,70px)", color: "#384b42" }} />,
+      text: "Air-Conditioning",
+      description: "Stay cool and comfortable all year round.",
+    },
+    {
+      logo: <ConnectedTvIcon sx={{ fontSize: "clamp(40px,5vw,70px)", color: "#384b42" }} />,
+      text: "Smart TV",
+      description: "Watch your favourites on a 42-inch smart TV.",
+    },
+    {
+      logo: <RoomServiceIcon sx={{ fontSize: "clamp(40px,5vw,70px)", color: "#384b42" }} />,
+      text: "Room Service",
+      description: "On-demand food and beverage delivery.",
+    },
+    {
+      logo: <LocalParkingIcon sx={{ fontSize: "clamp(36px,4vw,50px)", color: "#384b42" }} />,
+      text: "Free Parking",
+      description: "Secure, on-site parking is included.",
+    },
   ];
 
   const description = [
-    { subheading: 'Guest Access',
-      content: "You'll have full access to the apartment, balcony and kitchen—make yourself at home!" },
-    { subheading: 'Other Things to Note',
-      content: 'Fresh linens, toiletries and a welcome kit provided. Please respect the house rules.' },
-    { subheading: 'Neighborhood',
-      content: 'Quiet residential area just 5 min from the city centre. Cafés and shops are within walking distance.' },
+    {
+      subheading: "Guest Access",
+      content:
+        "You'll have full access to the apartment, balcony and kitchen—make yourself at home!",
+    },
+    {
+      subheading: "Other Things to Note",
+      content:
+        "Fresh linens, toiletries and a welcome kit provided. Please respect the house rules.",
+    },
+    {
+      subheading: "Neighborhood",
+      content:
+        "Quiet residential area just 5 min from the city centre. Cafés and shops are within walking distance.",
+    },
   ];
 
   const goToAvailability = () =>
-    navigate('/Availability', {
+    navigate("/Availability", {
       state: { pricePerNight, roomId },
     });
 
-  /* ---- render ---- */
   return (
     <>
       <NavBar />
@@ -64,8 +85,9 @@ const Rooms = () => {
           <Description>
             <Heading>About this space</Heading>
             <Paragraph>
-              Welcome to your home away from home. This modern and cosy space is perfect for solo travellers,
-              couples or small families. Fast Wi‑Fi, AC and comfort‑focused design ensure your stay is memorable.
+              Welcome to your home away from home. This modern and cosy space is
+              perfect for solo travellers, couples or small families. Fast Wi-Fi,
+              AC and comfort-focused design ensure your stay is memorable.
             </Paragraph>
 
             {description.map(({ subheading, content }, i) => (
@@ -78,7 +100,12 @@ const Rooms = () => {
 
           <Features>
             {amenities.map(({ logo, text, description }, i) => (
-              <FeaturesCard key={i} logo={logo} text={text} description={description} />
+              <FeaturesCard
+                key={i}
+                logo={logo}
+                text={text}
+                description={description}
+              />
             ))}
           </Features>
 
@@ -86,7 +113,7 @@ const Rooms = () => {
             <Nightly>
               {pricePerNight
                 ? `₹${pricePerNight.toLocaleString()} / night`
-                : 'Price on request'}
+                : "Price on request"}
             </Nightly>
             <AvailabilityBtn onClick={goToAvailability}>
               Check Availability
@@ -101,107 +128,125 @@ const Rooms = () => {
 export default Rooms;
 
 /* ---------- styled ---------- */
-const Wrapper = styled('div')`
-  width: 95vw;
+const Wrapper = styled("div")`
+  width: 95%;
+  max-width: 1400px;
   min-height: 100vh;
-  overflow-y: auto;
-  display: flex;
   margin: auto;
-  flex-direction: column;
-`;
-
-const Container = styled('div')`
   display: flex;
   flex-direction: column;
 `;
 
-const ImageSlider = styled('div')`
-  flex: 0 0 40%;
-  width: 100%;
-  margin-top: 10px;
+const Container = styled("div")`
+  display: flex;
+  flex-direction: column;
 `;
 
-const Features = styled('div')`
+const ImageSlider = styled("div")`
+  width: 100%;
+  margin-top: 1rem;
+`;
+
+const Features = styled("div")`
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 20px;
-  margin-bottom: 10vh;
-  align-items: center;
-`;
-
-const Description = styled('div')`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: auto;
-  width: 95%;
-  margin-top: 30px;
-  padding: 30px 20px 120px;
-`;
-
-const Heading = styled('h2')`
-  font-size: 36px;
-  font-weight: 700;
-  color: #2d2d2d;
-  margin-bottom: 20px;
-`;
-
-const Subheading = styled('h3')`
-  font-size: 24px;
-  font-weight: 600;
-  color: #384b42;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
+  gap: clamp(0.5rem, 1vw, 1rem);
+  margin-top: 1.5rem;
+  margin-bottom: 12vh;
+  align-items: stretch;
   justify-content: center;
 `;
 
-const Paragraph = styled('p')`
-  font-size: 18px;
+const Description = styled("div")`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  width: 95%;
+  margin-top: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
+`;
+
+const Heading = styled("h2")`
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: #2d2d2d;
+  margin-bottom: 1rem;
+  text-align: center;
+`;
+
+const Subheading = styled("h3")`
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  color: #384b42;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+`;
+
+const Paragraph = styled("p")`
+  font-size: clamp(0.95rem, 1.5vw, 1.125rem);
   line-height: 1.6;
   color: #444;
-  margin-bottom: 10px;
+  margin-bottom: 0.75rem;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    text-align: left;
+  }
 `;
 
-const Section = styled('div')`
-  margin-bottom: 15px;
+const Section = styled("div")`
+  margin-bottom: 1rem;
+  width: 100%;
 `;
 
-const CheckAvailability = styled('div')`
-  width: 95%;
-  height: 10vh;
+const CheckAvailability = styled("div")`
+  width: 100%;
+  min-height: 70px;
   position: fixed;
   bottom: 0;
   z-index: 100;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
+  justify-content: space-between;
   background: #fff;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.06);
-  padding-right: 8px;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
 `;
 
-const Nightly = styled('span')`
-  font-size: 18px;
+const Nightly = styled("span")`
+  font-size: clamp(1rem, 2vw, 1.25rem);
   font-weight: 600;
   color: #2d2d2d;
 `;
 
-const AvailabilityBtn = styled('button')`
-  margin: 10px;
-  padding: 12px 24px;
+const AvailabilityBtn = styled("button")`
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
   background-color: #384b42;
   color: #fff;
-  font-size: 20px;
+  font-size: clamp(1rem, 2vw, 1.125rem);
   font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: background 0.3s ease;
+  white-space: nowrap;
+
   &:hover {
     background-color: #2a3a34;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    text-align: center;
   }
 `;

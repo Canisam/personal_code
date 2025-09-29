@@ -1,16 +1,17 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import profileImage from '../../../public/test-img.jpg';
 
 const PhotoCardTestimonial2 = () => {
   return (
     <Wrapper>
       <ContainerPhoto>
         <Photo>
-          <StyledImage src={profileImage} alt="Profile" />
+          <StyledImage src="/test-img.jpg" alt="Profile" />
         </Photo>
         <Review>
-          I'm Khushi, a working professional, and my stay at Stone Heritage Stay was the perfect escape — peaceful, refreshing, and a true break from the chaos of daily life.
+          I'm Khushi, a working professional, and my stay at 
+          <strong> Stone Heritage Stay </strong> was the perfect escape — 
+          peaceful, refreshing, and a true break from the chaos of daily life.
         </Review>
       </ContainerPhoto>
     </Wrapper>
@@ -24,45 +25,36 @@ const Wrapper = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  height: '250px',
-  backgroundColor: '#f0f0f0',
+  padding: '10px',
+  backgroundColor: '#f9f9f9',
 });
 
 const ContainerPhoto = styled('div')({
-  height: '100%',
-  width: '400px',
-  padding: '10px',
   display: 'flex',
-  flexDirection: 'row', // Changed to row
-  alignItems: 'center',
-  justifyContent: 'space-between',
+  flexDirection: 'row',
+  alignItems: 'stretch',
   backgroundColor: '#ffffff',
-  boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-  gap: '10px', // Optional spacing between photo and review
+  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+  borderRadius: '8px',
+  overflow: 'hidden',
+  maxWidth: '600px',
+  width: '100%',
 });
 
 const Photo = styled('div')({
-  flex: '0 0 40%', // Take up 40% of the row
-  height: '100%',
-    width: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: 'grey',
-  overflow: 'hidden', // Ensures image doesn't overflow
+  flex: '0 0 40%',
+  minHeight: '200px',
+  backgroundColor: '#eee',
+  overflow: 'hidden',
 });
 
 const Review = styled('div')({
-  flex: '1',
-  height: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  padding: '10px',
-  textAlign: 'center',
+  flex: 1,
+  padding: '15px',
   fontSize: '14px',
-  lineHeight: '1.4',
+  lineHeight: 1.5,
+  color: '#333',
+  textAlign: 'left',
 });
 
 const StyledImage = styled('img')({
