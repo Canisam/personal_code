@@ -8,8 +8,8 @@ import { styled } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
 import FeaturesCard from "./FeaturesCard";
 import HeroSectionVolunteer from "./HeroSectionVolunteer";
-import BgMap from '../assets/bg-map.png'; // 🔥 Background image path
-import NavBar from "./NavBar"; // Assuming you have a NavBar component
+import BgMap from '../assets/bg-map.png';
+import NavBar from "./NavBar";
 
 const Volunteer = () => {
   const skills = [
@@ -30,10 +30,10 @@ const Volunteer = () => {
 
   return (
     <PageWrapper>
-      <NavBar/>
+      <NavBar />
       <HeroSectionVolunteer />
 
-      <SectionTitle>Volunteer Skills</SectionTitle>
+      <SectionTitle variant="h2">Volunteer Skills</SectionTitle>
       <HorizontalScroll>
         {skills.map((skill, index) => (
           <FeaturesCard
@@ -45,7 +45,7 @@ const Volunteer = () => {
         ))}
       </HorizontalScroll>
 
-      <SectionTitle>What We Offer</SectionTitle>
+      <SectionTitle variant="h2">What We Offer</SectionTitle>
       <HorizontalScroll>
         {services.map((service, index) => (
           <FeaturesCard
@@ -67,10 +67,14 @@ const PageWrapper = styled(Box)`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-attachment: fixed; /* optional */
+  background-attachment: fixed;
   min-height: 100vh;
   width: 100%;
   padding-bottom: 50px;
+
+  @media (max-width: 768px) {
+    background-attachment: scroll;
+  }
 `;
 
 const HorizontalScroll = styled(Box)`
@@ -82,19 +86,35 @@ const HorizontalScroll = styled(Box)`
   scrollbar-color: #ccc transparent;
 
   &::-webkit-scrollbar {
-    height: 8px;
+    height: 6px;
   }
   &::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 10px;
   }
+
+  @media (max-width: 768px) {
+    gap: 15px;
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 12px;
+    padding: 10px;
+  }
 `;
 
 const SectionTitle = styled(Typography)`
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: bold;
   text-align: center;
   margin-top: 40px;
+  margin-bottom: 10px;
   color: #222;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
+
+  @media (max-width: 480px) {
+    margin-top: 25px;
+    margin-bottom: 5px;
+  }
 `;

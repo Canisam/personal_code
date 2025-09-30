@@ -7,12 +7,10 @@ import { styled } from '@mui/material';
 import NavBar from './NavBar';
 
 export default function Availability() {
-  /* price and roomId arrive from Rooms.jsx */
   const location = useLocation();
   const pricePerNight = location.state?.pricePerNight || 0;
   const roomId = location.state?.roomId || 'N/A';
 
-  /* ---------- dates ---------- */
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
@@ -34,7 +32,6 @@ export default function Availability() {
     setTotalNights(nights);
   }, [dates]);
 
-  /* ---------- guests ---------- */
   const [guests, setGuests] = useState({
     adults: 1,
     children: 0,
@@ -48,28 +45,27 @@ export default function Availability() {
     });
   };
 
-  /* ---------- price ---------- */
   const totalPrice = pricePerNight * totalNights;
 
   return (
     <>
       <NavBar />
       <Container>
-        {/* WHEN */}
         <Section>
           <Heading>When?</Heading>
-          <DateRange
-            editableDateInputs
-            onChange={(item) => setDates([item.selection])}
-            moveRangeOnFirstSelection={false}
-            ranges={dates}
-            months={1}
-            direction="horizontal"
-            showDateDisplay={false}
-          />
+          <DateSection >
+            <DateRange
+              editableDateInputs
+              onChange={(item) => setDates([item.selection])}
+              moveRangeOnFirstSelection={false}
+              ranges={dates}
+              months={1}
+              direction="horizontal"
+              showDateDisplay={false}
+            />
+          </DateSection>
         </Section>
 
-        {/* WHO */}
         <Section>
           <Heading>Who?</Heading>
           <GuestSection>
@@ -88,7 +84,6 @@ export default function Availability() {
           </GuestSection>
         </Section>
 
-        {/* PRICE */}
         <Section>
           <Heading>Price</Heading>
           <PriceRow>
@@ -101,40 +96,63 @@ export default function Availability() {
         </Section>
 
         <ContinueBtn>
-          Continue {/* wire this to your checkout / confirmation */}
+          Continue
         </ContinueBtn>
       </Container>
     </>
   );
 }
 
-/* ---------- styled ---------- */
 const Container = styled('div')`
-  padding: 24px;
+  padding: clamp(1rem, 2vw, 2rem);
   max-width: 800px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: auto;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const Section = styled('div')`
-  margin-top: 40px;
+  margin-top: 2.5rem;
   width: 50%;
+
+  @media (max-width: 1024px) {
+    width: 70%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 2rem;
+  }
+`;
+
+const DateSection = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Heading = styled('h2')`
-  font-size: 32px;
+  font-size: clamp(1.25rem, 2vw, 2rem);
   font-weight: 700;
   color: #2d2d2d;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    text-align: left;
+  }
 `;
 
 const GuestSection = styled('div')`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
 `;
 
 const GuestRow = styled('div')`
@@ -146,49 +164,58 @@ const GuestRow = styled('div')`
 const Counter = styled('div')`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 `;
 
 const Button = styled('button')`
-  width: 32px;
-  height: 32px;
-  font-size: 20px;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.25rem;
   border-radius: 50%;
   background: #384b42;
   color: #fff;
   border: none;
   cursor: pointer;
+  flex-shrink: 0;
   &:hover {
     background: #2a3a34;
   }
 `;
 
 const Count = styled('span')`
-  font-size: 18px;
-  min-width: 20px;
+  font-size: 1rem;
+  min-width: 1.5rem;
   text-align: center;
 `;
 
 const PriceRow = styled('div')`
   display: flex;
   justify-content: space-between;
-  font-size: 20px;
-  margin-top: 10px;
-  padding: 10px 0;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  margin-top: 0.75rem;
+  padding: 0.75rem 0;
   border-top: 1px solid #ccc;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 `;
 
 const ContinueBtn = styled('button')`
- width: 50%;  margin-top: 40px;
-  padding: 16px;
-  font-size: 20px;
+  width: 50%;
+  margin-top: 2.5rem;
+  padding: clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: bold;
   background: #384b42;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   cursor: pointer;
   &:hover {
     background: #2a3a34;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 2rem;
   }
 `;

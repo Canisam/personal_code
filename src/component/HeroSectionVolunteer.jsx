@@ -1,164 +1,187 @@
 // components/HeroSection.jsx
-// components/HeroSection.jsx
-import React from 'react';
-import { styled, Button, Typography, Box } from '@mui/material';
-import MapMask from '../assets/bg-uk.png';   // Transparent map of Uttarakhand
-import OverlayImage from '../assets/image1.png'; // Image inside map
+import React from "react";
+import { Box, Button, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import MapMask from "../assets/bg-uk.png"; // Transparent map of Uttarakhand
+import OverlayImage from "../assets/image1.png"; // Image inside map
 
 const HeroSectionVolunteer = () => {
-    return (
-        <Container>
-            <ContentBox>
-                <Title>
-                    Be the Change. <br />
-                    Start with <span>a Helping Hand</span>
-                </Title>
-                <Paragraph>
-                    Join our mission to uplift communities, empower individuals, and bring lasting change. Whether you give your time, skills, or heart — every act of service counts.
-                </Paragraph>
-                <CTAButton variant="contained" size="large">
-                    Become a Volunteer
-                </CTAButton>
-            </ContentBox>
+  return (
+    <Container component="section" aria-labelledby="hero-title">
+      <ContentBox>
+        <Title id="hero-title" component="h1">
+          Be the Change.
+          <br />
+          Start with <Emphasis>a Helping Hand</Emphasis>
+        </Title>
 
-            <MapMaskWrapper>
-                <MaskedImage src={OverlayImage} alt="Masked Overlay" />
-            </MapMaskWrapper>
-        </Container>
-    );
+        <Paragraph component="p">
+          Join our mission to uplift communities, empower individuals, and bring
+          lasting change. Whether you give your time, skills, or heart — every
+          act of service counts.
+        </Paragraph>
+
+        <CTAButton
+          variant="contained"
+          size="large"
+          aria-label="Become a volunteer"
+        >
+          Become a Volunteer
+        </CTAButton>
+      </ContentBox>
+
+      <MapMaskWrapper aria-hidden="true">
+        <MaskedImage src={OverlayImage} alt="Uttarakhand map with overlay" />
+      </MapMaskWrapper>
+    </Container>
+  );
 };
 
 export default HeroSectionVolunteer;
 
-const Container = styled(Box)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 4rem 6rem;
-  background-color: rgba(255, 255, 255, 0.2); /* light transparent layer */
-  backdrop-filter: blur(6px); /* optional: softens bg behind */
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  flex-wrap: wrap;
-  overflow: hidden;
+/* -------------------------
+   Styled components
+   ------------------------- */
 
-  @media (max-width: 768px) {
-    flex-direction: column-reverse;
-    padding: 2rem;
-  }
-`;
+const Container = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "clamp(1rem, 3vw, 2.5rem)",
+  padding: "clamp(1.25rem, 3.5vw, 4rem)",
+  backgroundColor: "rgba(255,255,255,0.18)",
+  backdropFilter: "blur(6px)",
+  borderRadius: 20,
+  boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+  flexWrap: "wrap",
+  overflow: "hidden",
 
+  maxWidth: 1280,
+  marginLeft: "auto",
+  marginRight: "auto",
 
-const ContentBox = styled('div')`
-  flex: 1;
-  max-width: 520px;
-  padding-right: 2rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(6px);
-  padding: 2rem;
-  border-radius: 16px;
-  animation: fadeInUp 0.8s ease-out;
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column-reverse",
+    padding: "clamp(1rem, 4vw, 2rem)",
+  },
+}));
 
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+const ContentBox = styled("div")(({ theme }) => ({
+  flex: "1 1 420px",
+  maxWidth: 560,
+  minWidth: 240,
+  padding: "clamp(1rem, 2.5vw, 2rem)",
+  backgroundColor: "rgba(255,255,255,0.85)",
+  backdropFilter: "blur(6px)",
+  borderRadius: 16,
+  animation: "fadeInUp 0.8s ease-out",
+  boxSizing: "border-box",
 
-  @media (max-width: 768px) {
-    padding-right: 0;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-`;
+  "@keyframes fadeInUp": {
+    from: { opacity: 0, transform: "translateY(18px)" },
+    to: { opacity: 1, transform: "translateY(0)" },
+  },
 
-const MapMaskWrapper = styled('div')`
-  width: 700px;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: zoomIn 1s ease-out;
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    maxWidth: "100%",
+    padding: "clamp(0.75rem, 4vw, 1.25rem)",
+    textAlign: "center",
+    marginBottom: "0.75rem",
+  },
+}));
 
-  @keyframes zoomIn {
-    from {
-      transform: scale(0.9);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
+const MapMaskWrapper = styled("div")(({ theme }) => ({
+  flex: "0 0 clamp(240px, 40%, 700px)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  animation: "zoomIn 0.9s ease-out",
+  transition: "transform 0.35s ease, filter 0.35s ease",
+  borderRadius: 12,
+  overflow: "visible",
+  minWidth: 200,
 
-  @media (max-width: 768px) {
-    width: 90%;
-  }
+  "@keyframes zoomIn": {
+    from: { transform: "scale(0.96)", opacity: 0 },
+    to: { transform: "scale(1)", opacity: 1 },
+  },
 
-  &:hover img {
-    transform: scale(1.05);
-    filter: drop-shadow(0 12px 25px rgba(25, 118, 210, 0.35));
-    transition: all 0.4s ease-in-out;
-  }
-`;
+  "&:hover img": {
+    transform: "scale(1.04)",
+    filter: "drop-shadow(0 12px 25px rgba(25,118,210,0.28))",
+  },
 
-const MaskedImage = styled('img')`
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    flex: "1 1 100%",
+    marginBottom: 0,
+    order: -1,
+  },
+}));
 
-  mask-image: url(${MapMask});
-  mask-size: cover;
-  mask-repeat: no-repeat;
-  mask-position: center;
+const MaskedImage = styled("img")({
+  width: "100%",
+  height: "auto",
+  objectFit: "cover",
+  transition: "transform 0.35s ease, filter 0.35s ease",
+  display: "block",
 
-  -webkit-mask-image: url(${MapMask});
-  -webkit-mask-size: cover;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-`;
+  maskImage: `url(${MapMask})`,
+  maskSize: "cover",
+  maskRepeat: "no-repeat",
+  maskPosition: "center",
 
-const Title = styled(Typography)`
-  font-weight: 800;
-  font-size: 3rem;
-  line-height: 1.2;
-  margin-bottom: 1.2rem;
-  color: #1a1a1a;
+  WebkitMaskImage: `url(${MapMask})`,
+  WebkitMaskSize: "cover",
+  WebkitMaskRepeat: "no-repeat",
+  WebkitMaskPosition: "center",
 
-  span {
-    color: #1976d2;
-  }
+  maxWidth: 900,
+  borderRadius: 12,
+});
 
-  @media (max-width: 768px) {
-    font-size: 2.2rem;
-  }
-`;
+const Title = styled(Typography)({
+  fontWeight: 800,
+  fontSize: "clamp(1.6rem, 2.6vw + 0.8rem, 3rem)",
+  lineHeight: 1.15,
+  marginBottom: "0.9rem",
+  color: "#0f1724",
+  letterSpacing: "-0.01em",
+  wordWrap: "break-word",
+});
 
-const Paragraph = styled(Typography)`
-  font-size: 1.2rem;
-  color: #444;
-  line-height: 1.8;
-  margin-bottom: 2rem;
-`;
+const Emphasis = styled("span")({
+  color: "#1976d2",
+});
 
-const CTAButton = styled(Button)`
-  background-color: #1976d2;
-  color: white;
-  padding: 12px 32px;
-  font-size: 1rem;
-  border-radius: 30px;
-  text-transform: none;
-  box-shadow: 0px 8px 20px rgba(25, 118, 210, 0.3);
+const Paragraph = styled(Typography)({
+  fontSize: "clamp(0.95rem, 1.2vw + 0.6rem, 1.15rem)",
+  color: "#333",
+  lineHeight: 1.7,
+  marginBottom: "1.25rem",
+  opacity: 0.95,
+});
 
-  &:hover {
-    background-color: #1256a3;
-    transform: translateY(-2px);
-    box-shadow: 0px 10px 24px rgba(25, 118, 210, 0.4);
-  }
-`;
+const CTAButton = styled(Button)({
+  backgroundColor: "#1976d2",
+  color: "#fff",
+  padding: "clamp(10px, 1.2vw, 14px) clamp(20px, 2.5vw, 32px)",
+  fontSize: "clamp(0.95rem, 1vw + 0.4rem, 1rem)",
+  borderRadius: 28,
+  textTransform: "none",
+  boxShadow: "0 8px 20px rgba(25,118,210,0.25)",
+  transition:
+    "transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease",
+
+  "&:hover": {
+    backgroundColor: "#1256a3",
+    transform: "translateY(-2px)",
+    boxShadow: "0 10px 26px rgba(25,118,210,0.32)",
+  },
+
+  "&:focus": {
+    outline: "3px solid rgba(25,118,210,0.18)",
+    outlineOffset: 2,
+  },
+});

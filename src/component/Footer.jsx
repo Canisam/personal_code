@@ -49,9 +49,9 @@ const Footer = () => {
           {/* Contact Info */}
           <FooterColumn className="contact-info">
             <ColumnTitle>Get In Touch</ColumnTitle>
-            <p>+01 234 567 890</p>
-            <p>support@email.com</p>
-            <p>789 Lorem Lane, Holy park, California, USA</p>
+            <p>+91 9027844424</p>
+            <p>Thestoneheritage@gmail.com</p>
+            <p>Sign Board, Stops At Stone Heritage, Bhowali Dhanachuli Rd, Mukteshwar, South Gola Range, Uttarakhand 263138</p>
           </FooterColumn>
 
           {/* Instagram Section */}

@@ -204,22 +204,29 @@ const Section = styled("div")`
 const CheckAvailability = styled("div")`
   width: 100%;
   min-height: 70px;
-  position: fixed;
-  bottom: 0;
-  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: #fff;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.06);
-  padding: 0.5rem 1rem;
-  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-top: 2rem;
 
-  @media (max-width: 480px) {
+  /* Desktop: inline card style */
+  position: static;
+
+  @media (max-width: 768px) {
+    /* Mobile: sticky at bottom */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
     flex-direction: column;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem;
   }
 `;
 
@@ -245,7 +252,7 @@ const AvailabilityBtn = styled("button")`
     background-color: #2a3a34;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     width: 100%;
     text-align: center;
   }
