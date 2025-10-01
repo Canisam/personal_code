@@ -1,10 +1,16 @@
-import HomeContainer from '../component/HomeContainer';
-import HomeCard from '../component/HomeCard';
 import { Box } from '@mui/material';
-
 import NavBar from '../component/NavBar';
 import Footer from '../component/Footer';
+import HomeContainer from '../component/HomeContainer';
+import HomeCard from '../component/HomeCard';
 import MainTestimonial from '../component/testimonialCards/MainTestimonial';
+
+// ✅ Import images at the top
+import homeTwo from '../assets/home_two.JPEG';
+import img1 from '../assets/i1.jpg';
+import img2 from '../assets/i2.jpg';
+import img3 from '../assets/i3.jpg';
+import bgImg from '../assets/bgImg.jpg';
 
 const HomePage = () => {
   return (
@@ -19,10 +25,11 @@ const HomePage = () => {
       <NavBar />
 
       <HomeContainer
-        bgImage="./src/assets/home_two.JPEG"
+        bgImage={homeTwo}
         text="Honest reviews of the most unique & boutique hotels for modern travellers."
       />
 
+      {/* First cards section */}
       <Box
         sx={{
           display: 'grid',
@@ -39,27 +46,28 @@ const HomePage = () => {
         }}
       >
         <HomeCard
-          image="./src/assets/i2.jpg"
+          image={img2}
           title="Hand-picked Unique Locations"
           description="Each accommodation in our collection is hand-picked and unforgettable."
         />
         <HomeCard
-          image="./src/assets/i3.jpg"
+          image={img3}
           title="Total Transparency"
           description="We deliver relevant information with honesty."
         />
         <HomeCard
-          image="./src/assets/bgImg.jpg"
+          image={bgImg}
           title="Global Connections"
           description="We connect the modern traveller to unique properties worldwide."
         />
       </Box>
 
       <HomeContainer
-        bgImage="./src/assets/i1.jpg"
+        bgImage={img1}
         text="Dreamy escapes, thoughtful hideaways & one-of-a-kind destinations."
       />
 
+      {/* Second cards section */}
       <Box
         sx={{
           display: 'grid',
@@ -74,17 +82,17 @@ const HomePage = () => {
         }}
       >
         <HomeCard
-          image="./src/assets/i2.jpg"
+          image={img2}
           title="Hand-picked Unique Locations"
           description="Each accommodation in our collection is hand-picked and unforgettable."
         />
         <HomeCard
-          image="./src/assets/i3.jpg"
+          image={img3}
           title="Total Transparency"
           description="We deliver relevant information with honesty."
         />
         <HomeCard
-          image="./src/assets/bgImg.jpg"
+          image={bgImg}
           title="Global Connections"
           description="We connect the modern traveller to unique properties worldwide."
         />
